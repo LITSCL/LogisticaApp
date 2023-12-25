@@ -95,9 +95,13 @@ Algoritmo main
 					FinSi
 				FinMientras
 			Caso, "2":
-				Para i = 1 Hasta __contador Con Paso 1 Hacer
-					Escribir "Peso: " , __envios[i, 1] , " | " , "Destino: " , __simulacion_trim(__envios[i, 2]) , " | " , "Precio: " , __envios[i, 3] , " | " , "Estado: " , __envios[i, 4] , " | " , "Reporte: " , "..."
-				FinPara
+				Si __contador <> 0 Entonces
+					Para i = 1 Hasta __contador Con Paso 1 Hacer
+						Escribir "Peso: " , __envios[i, 1] , " | " , "Destino: " , __simulacion_trim(__envios[i, 2]) , " | " , "Precio: " , __envios[i, 3] , " | " , "Estado: " , __envios[i, 4] , " | " , "Reporte: " , "..."
+					FinPara
+				SiNo
+					Escribir "ERROR: No hay envíos registrados en el sistema"
+				FinSi
 			Caso, "3":
 				Si __contador <> 0 Entonces
 					Mientras __validado == Falso Hacer
@@ -140,7 +144,7 @@ Algoritmo main
 						FinSegun
 					FinMientras
 				SiNo
-					Escribir "ERROR: No hay emvíos registrados en el sistema"
+					Escribir "ERROR: No hay envíos registrados en el sistema"
 				FinSi
 			Caso, "0":
 				__seguir = Falso
