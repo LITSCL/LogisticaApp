@@ -64,7 +64,7 @@ Algoritmo main
 						Si ConvertirANumero(__peso) >= 0 y ConvertirANumero(__peso) <= 50 Entonces
 							__validado = Verdadero
 						SiNo
-							Escribir "ERROR: La edad no está dentro del rango"
+							Escribir "ERROR: El peso no está dentro del rango"
 						FinSi
 					SiNo
 						Escribir "ERROR: Debe ingresar un número válido"
