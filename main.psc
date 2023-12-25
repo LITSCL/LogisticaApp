@@ -163,7 +163,11 @@ Funcion __precio <- __calcular_precio(__peso, __distancia)
 	Definir __valor_por_distancia Como Numero
 	__valor_por_peso = ConvertirANumero(__peso) * 1.4
 	__valor_por_distancia = __distancia * 1.4
-	__precio = __valor_por_peso * __valor_por_distancia
+	Si __valor_por_distancia == 0 Entonces
+		__precio = 5000
+	SiNo
+		__precio = __valor_por_peso * __valor_por_distancia + 5000
+	FinSi
 FinFuncion
 
 Funcion __validado <- __validar_numero(__numero)
