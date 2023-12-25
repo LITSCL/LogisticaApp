@@ -2,10 +2,11 @@ Algoritmo main
 	
 	Definir __destino Como Texto
 	Definir __peso Como Texto
+	Definir __precio Como Numero
 	Definir __estado Como Texto
 	Definir __reporte Como Texto
 	
-	Dimension __envios[4, 4]
+	Dimension __envios[1000, 5]
 	Dimension __regiones[16]
 	Dimension __distancias[16]
 	
@@ -58,18 +59,39 @@ Algoritmo main
 				Escribir "Seleccione el destino del envío:"
 				__imprimir_arreglo(__regiones)
 				Leer __destino
-				__calcular_precio(__peso, __distancias[__destino])
+				__precio = __calcular_precio(__peso, __distancias[__destino])
 				__envios[__contador + 1, 1] = __peso
 				__envios[__contador + 1, 2] = __regiones[__destino]
-				__envios[__contador + 1, 3] = "Realizado"
-				__envios[__contador + 1, 4] = "Su paquete está proximo a ser retirado por el vehículo de despacho"
+				__envios[__contador + 1, 3] = "$" + ConvertirATexto(__precio)
+				__envios[__contador + 1, 4] = "Realizado"
+				__envios[__contador + 1, 5] = "Su paquete está proximo a ser retirado por el vehículo de despacho"
 				__contador = __contador + 1
 			Caso, "2":
-				Escribir "Mostrar envíos"
-				Escribir __contador
+				Para i = 1 Hasta __contador Con Paso 1 Hacer
+					Escribir "Peso: " , __envios[i, 1] , " | " , "Destino: " , __envios[i, 2] , " | " , "Precio: " , __envios[i, 3] , " | " , "Estado: " , __envios[i, 4] , " | " , "Reporte: " , "..."
+				FinPara
 			Caso, "3":
-				Escribir "Actualizar envío"
-				Escribir __contador
+				Definir __envio_seleccionado Como Numero
+				Escribir "Seleccione el envío que desea actualizar"
+				Para i = 1 Hasta __contador Con Paso 1 Hacer
+					Escribir i , "." ,  " -> " , __envios[i, 1] , " | " , "Destino: " , __envios[i, 2] , " | " , "Precio: " , __envios[i, 3] , " | " , "Estado: " , __envios[i, 4] , " | " , "Reporte: " , "..."
+				FinPara
+				Leer __envio_seleccionado
+				Escribir "¿Cual es el nuevo estado del envío?"
+				Escribir "1. En tránsito"
+				Escribir "2. Entregado"
+				Escribir "3. Devuelto"
+				Leer __estado
+				Segun __estado Hacer
+					Caso, "1":
+						__envios[__envio_seleccionado, 4] = "En tránsito"
+					Caso, "2":
+						__envios[__envio_seleccionado, 4] = "Entregado"
+					Caso, "3":
+						__envios[__envio_seleccionado, 4] = "Devuelto"
+					De Otro Modo:
+						Escribir "La opcion seleccionada no es valida"
+				FinSegun
 			Caso, "0":
 				__seguir = Falso
 			De Otro Modo:
@@ -85,12 +107,21 @@ Funcion __imprimir_arreglo(__arreglo)
 	FinPara
 FinFuncion
 
-Funcion __calcular_precio(__peso, __distancia)
-	Escribir "Peso = " , __peso
-	Escribir "Distancia = " , __distancia
-	Escribir "Calculando..."
+Funcion __precio <- __calcular_precio(__peso, __distancia)
+	Definir __precio Como Numero
+	Definir __valor_por_peso Como Numero
+	Definir __valor_por_distancia Como Numero
+	__valor_por_peso = ConvertirANumero(__peso) * 1.4
+	__valor_por_distancia = __distancia * 1.4
+	__precio = __valor_por_peso * __valor_por_distancia
 FinFuncion
 
-Funcion __resultado <- __validar_numero(__arreglo)
-	Escribir "Función"
+Funcion __validado <- __validar_numero(__numero)
+	__validado = Verdadero
+	Para i = 5 Hasta Longitud(__numero) Con Paso 1 Hacer
+		__v = Subcadena(__numero, i, i)
+		Si __v <> "0" y __v <> "1" y __v <> "2" y __v <> "3" y __v <> "4" y __v <> "5" y __v <> "6" y __v <> "7" y __v <> "8" y __v <> "9" Entonces
+			__validado = Falso
+		FinSi
+	FinPara
 FinFuncion
