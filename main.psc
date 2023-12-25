@@ -99,45 +99,49 @@ Algoritmo main
 					Escribir "Peso: " , __envios[i, 1] , " | " , "Destino: " , __simulacion_trim(__envios[i, 2]) , " | " , "Precio: " , __envios[i, 3] , " | " , "Estado: " , __envios[i, 4] , " | " , "Reporte: " , "..."
 				FinPara
 			Caso, "3":
-				Mientras __validado == Falso Hacer
-					Escribir "Seleccione el envío que desea actualizar"
-					Para i = 1 Hasta __contador Con Paso 1 Hacer
-						Escribir i , "." ,  " -> " , __envios[i, 1] , " | " , "Destino: " , __simulacion_trim(__envios[i, 2]) , " | " , "Precio: " , __envios[i, 3] , " | " , "Estado: " , __envios[i, 4] , " | " , "Reporte: " , "..."
-					FinPara
-					Leer __envio_seleccionado
-					Si __validar_numero(__envio_seleccionado) == Verdadero Entonces
-						Si ConvertirANumero(__envio_seleccionado) >= 1 y ConvertirANumero(__envio_seleccionado) <= __contador Entonces
-							__validado = Verdadero
+				Si __contador <> 0 Entonces
+					Mientras __validado == Falso Hacer
+						Escribir "Seleccione el envío que desea actualizar"
+						Para i = 1 Hasta __contador Con Paso 1 Hacer
+							Escribir i , "." ,  " -> " , "Peso: " , __envios[i, 1] , " | " , "Destino: " , __simulacion_trim(__envios[i, 2]) , " | " , "Precio: " , __envios[i, 3] , " | " , "Estado: " , __envios[i, 4] , " | " , "Reporte: " , "..."
+						FinPara
+						Leer __envio_seleccionado
+						Si __validar_numero(__envio_seleccionado) == Verdadero Entonces
+							Si ConvertirANumero(__envio_seleccionado) >= 1 y ConvertirANumero(__envio_seleccionado) <= __contador Entonces
+								__validado = Verdadero
+							SiNo
+								Escribir "ERROR: La opcion seleccionada no es valida"
+							FinSi
 						SiNo
-							Escribir "ERROR: La opcion seleccionada no es valida"
+							Escribir "ERROR: Debe ingresar un número válido"
 						FinSi
-					SiNo
-						Escribir "ERROR: Debe ingresar un número válido"
-					FinSi
-				FinMientras
-				
-				__validado = Falso
-				
-				Mientras __validado == Falso Hacer
-					Escribir "¿Cual es el nuevo estado del envío?"
-					Escribir "1. En tránsito"
-					Escribir "2. Entregado"
-					Escribir "3. Devuelto"
-					Leer __estado
-					Segun __estado Hacer
-						Caso, "1":
-							__envios[ConvertirANumero(__envio_seleccionado), 4] = "En tránsito"
-							__validado = Verdadero
-						Caso, "2":
-							__envios[ConvertirANumero(__envio_seleccionado), 4] = "Entregado"
-							__validado = Verdadero
-						Caso, "3":
-							__envios[ConvertirANumero(__envio_seleccionado), 4] = "Devuelto"
-							__validado = Verdadero
-						De Otro Modo:
-							Escribir "ERROR: La opcion seleccionada no es valida"
-					FinSegun
-				FinMientras
+					FinMientras
+					
+					__validado = Falso
+					
+					Mientras __validado == Falso Hacer
+						Escribir "¿Cual es el nuevo estado del envío?"
+						Escribir "1. En tránsito"
+						Escribir "2. Entregado"
+						Escribir "3. Devuelto"
+						Leer __estado
+						Segun __estado Hacer
+							Caso, "1":
+								__envios[ConvertirANumero(__envio_seleccionado), 4] = "En tránsito"
+								__validado = Verdadero
+							Caso, "2":
+								__envios[ConvertirANumero(__envio_seleccionado), 4] = "Entregado"
+								__validado = Verdadero
+							Caso, "3":
+								__envios[ConvertirANumero(__envio_seleccionado), 4] = "Devuelto"
+								__validado = Verdadero
+							De Otro Modo:
+								Escribir "ERROR: La opcion seleccionada no es valida"
+						FinSegun
+					FinMientras
+				SiNo
+					Escribir "ERROR: No hay emvíos registrados en el sistema"
+				FinSi
 			Caso, "0":
 				__seguir = Falso
 			De Otro Modo:
