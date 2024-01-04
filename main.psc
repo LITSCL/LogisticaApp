@@ -56,6 +56,8 @@ Algoritmo main
 		Escribir "0. Salir"
 		Leer __opcion
 		Segun __opcion Hacer
+			Caso, "0":
+				__seguir = Falso
 			Caso, "1":
 				Mientras __validado == Falso Hacer
 					Escribir "Ingrese el peso del paquete: (0Kg/50Kg)"
@@ -146,8 +148,6 @@ Algoritmo main
 				SiNo
 					Escribir "ERROR: No hay envíos registrados en el sistema"
 				FinSi
-			Caso, "0":
-				__seguir = Falso
 			De Otro Modo:
 				Escribir "ERROR: La opcion seleccionada no es valida"
 		FinSegun
